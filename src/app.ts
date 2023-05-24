@@ -37,7 +37,7 @@ export default class App {
         });
     }
     
-    public getClient():Mongoose {
+    public getClientMongoose():Mongoose {
         return this.databaseClient;
     }
 
