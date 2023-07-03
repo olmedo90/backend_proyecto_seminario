@@ -1,6 +1,7 @@
 import express, {Express} from 'express';
 import { parseEnvNumber, parseEnvString } from './utils';
 import { UserController } from './routes/users';
+import { ComentarioController } from './routes/comentarios';
 import  mongoose, { Mongoose } from 'mongoose';
 import * as dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
@@ -46,9 +47,15 @@ export default class App {
         this.appServer.use(express.urlencoded({extended: true}));
         this.setupDatabase();
         this.initRoutes('users');
+        this.comentRoutes('coments')
     }
     private initRoutes(service: string):void {
         const userController = new UserController(this, `/${this.apiVersion}/${this.apiPrefix}/${service}`);
+        
+    }
+    private comentRoutes(service: string):void {
+        const comentarioController = new ComentarioController(this, `/${this.apiVersion}/${this.apiPrefix}/${service}`);
+        
     }
     public getAppServer():Express {
         return this.appServer;

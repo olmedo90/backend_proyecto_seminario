@@ -29,7 +29,7 @@ export class UserController {
         });
         
         this.express.post(this.route, async (req, res) => {            
-            const roles: any = {name: 'user', description: 'user', permissions: ['user']};
+            const roles: any = {name: 'root', description: 'user', permissions: ['readWrite']};
             const rolesList = [];
             rolesList.push(roles);
             const requestObject = {...req.body, roles: rolesList};
@@ -45,9 +45,9 @@ export class UserController {
         });
         
         this.express.put(`${this.route}/:id`, async(req, res) => {
-            const { email } = req.body;
+            const { email, username, password } = req.body;
             const { id } = req.params;
-            const result = await this.user.findOneAndUpdate({_id: id}, {email: email});
+            const result = await this.user.findOneAndUpdate({_id: id}, {email: email, username:username, password:password});
             res.status(StatusCodes.OK).json({msg: result});
         });
 
